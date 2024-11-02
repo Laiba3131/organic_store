@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "775805594684",
+    "project_id": "organicstore-18448",
+    "storage_bucket": "organicstore-18448.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775805594684:android:5257d3cf78227d15766739",
+        "android_client_info": {
+          "package_name": "com.example.stripe_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI0x_qopkqWP65H82JQ9OTvIDFHcJEem8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
