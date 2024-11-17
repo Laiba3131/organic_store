@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomerance_app/AppColors/appcolors.dart';
-import 'package:ecomerance_app/Screens/welcome_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
@@ -10,7 +9,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-
 import '../Auth/firestore.dart';
 import '../CustomWidgets/CustomButton.dart';
 import '../CustomWidgets/CustomTextformField.dart';
@@ -222,7 +220,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: true,
         title: const AppText(
           text: 'Update Profile Screen',
@@ -275,7 +273,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                         ),
                                       ),
                                   imageUrl: userData?["imageUrl"])
-                                  : Icon(Icons.camera_alt,size: 50,  color: AppColors.primary,)
+                                  : const Icon(Icons.camera_alt,size: 50,  color: AppColors.primary,)
                           ),
                         ),
                         Positioned(
@@ -298,7 +296,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     AppText(
                       textAlign: TextAlign.center,
                       text: '${userData?['userName'] ?? ''}'.toUpperCase(),
@@ -329,18 +327,18 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 10),
-                    CustomTextFormField(
-                      controller: _passwordController,
-                      prefixIcon: Icons.lock,
-                      hintText: 'Password',
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty ) {
-                          return 'Please enter a valid password number';
-                        }
-                        return null;
-                      },
-                    ),
+                    // const SizedBox(height: 10),
+                    // CustomTextFormField(
+                    //   controller: _passwordController,
+                    //   prefixIcon: Icons.lock,
+                    //   hintText: 'Password',
+                    //   validator: (value) {
+                    //     if (value == null || value.trim().isEmpty ) {
+                    //       return 'Please enter a valid password number';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
                     const SizedBox(height: 40),
                     CustomButton(
                       onTap: isEnabled ? _saveInfo : null,
@@ -350,7 +348,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     ),
                   ],
                 )
-                    : SizedBox(
+                    : const SizedBox(
                     height: 40,
                     width: 30,
                     child: Center(

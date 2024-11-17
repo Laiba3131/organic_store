@@ -43,7 +43,7 @@ class _AdminCreatePostState extends State<AdminCreatePost> {
       context: context,
       builder: (context) => SafeArea(
         child: Container(
-          padding: EdgeInsets.all(9),
+          padding: const EdgeInsets.all(9),
           height: 140,
           width: MediaQuery.sizeOf(context).width,
           decoration: BoxDecoration(
@@ -53,16 +53,16 @@ class _AdminCreatePostState extends State<AdminCreatePost> {
           child: Wrap(
             children: [
               ListTile(
-                leading: Icon(Icons.camera_alt, color: Colors.white),
-                title: Text("Camera", style: TextStyle(color: Colors.white)),
+                leading: const Icon(Icons.camera_alt, color: Colors.white),
+                title: const Text("Camera", style: TextStyle(color: Colors.white)),
                 onTap: () {
                   Navigator.of(context).pop();
                   _pickImage(ImageSource.camera);
                 },
               ),
               ListTile(
-                leading: Icon(Icons.photo_library, color: Colors.white),
-                title: Text("Gallery", style: TextStyle(color: Colors.white)),
+                leading: const Icon(Icons.photo_library, color: Colors.white),
+                title: const Text("Gallery", style: TextStyle(color: Colors.white)),
                 onTap: () {
                   Navigator.of(context).pop();
                   _pickImage(ImageSource.gallery);
@@ -108,7 +108,7 @@ class _AdminCreatePostState extends State<AdminCreatePost> {
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Post created successfully')),
+          const SnackBar(content: Text('Post created successfully')),
         );
         Get.back();
 
@@ -134,7 +134,7 @@ class _AdminCreatePostState extends State<AdminCreatePost> {
     } else {
       if (!_isImageSelected) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('please select an Image')),
+          const SnackBar(content: Text('please select an Image')),
         );
         setState(() {
           isSaving = false;
@@ -147,7 +147,7 @@ class _AdminCreatePostState extends State<AdminCreatePost> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Create Post Screen',
           textColor: Colors.white,
           fontSize: 20,
@@ -163,7 +163,7 @@ class _AdminCreatePostState extends State<AdminCreatePost> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppText(text: 'Post Image', fontSize: 16),
+                  const AppText(text: 'Post Image', fontSize: 16),
                   const SizedBox(height: 10),
                   GestureDetector(
                     onTap: () => _showImageSourceActionSheet(context),
@@ -180,11 +180,11 @@ class _AdminCreatePostState extends State<AdminCreatePost> {
                         borderRadius: BorderRadius.circular(10),
                         child: Image.file(_selectedImage!, fit: BoxFit.cover),
                       )
-                          : Icon(Icons.add,),
+                          : const Icon(Icons.add,),
                     ),
                   ),
                   const SizedBox(height: 10),
-                  AppText(text: 'Post Name', fontSize: 16,),
+                  const AppText(text: 'Post Name', fontSize: 16,),
                   const SizedBox(height: 10),
                   CustomTextFormField(
                     controller: _postNameController,
@@ -198,7 +198,7 @@ class _AdminCreatePostState extends State<AdminCreatePost> {
                     },
                   ),
                   const SizedBox(height: 10),
-                  AppText(text: 'Post Description', fontSize: 16,),
+                  const AppText(text: 'Post Description', fontSize: 16,),
                   const SizedBox(height: 10),
                   CustomTextFormField(
                     controller: _postDescriptionController,

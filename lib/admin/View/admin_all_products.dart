@@ -25,9 +25,11 @@ class _AdminAllProductsState extends State<AdminAllProducts> {
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
     if (pickedFile != null) {
-      setState(() {
+     if(mounted){
+       setState(() {
         _selectedImage = File(pickedFile.path);
       });
+     }
     }
   }
 
@@ -61,7 +63,7 @@ class _AdminAllProductsState extends State<AdminAllProducts> {
     String selectedCategory = product.productCategory;
     String selectedProductType = product.productType;
 
-    List<String> categories = ['Electronics', 'Clothes', 'Bag','Shoes','Sports']; // Example categories
+    List<String> categories = ['Fruits', 'Vegetable', 'Dairy Products ', 'Grains & Pulses', 'Herbs & Spices']; // Example categories
     List<String> productTypes = ['Trending', 'Popular'];
 
     await showDialog(
@@ -293,9 +295,8 @@ class _AdminAllProductsState extends State<AdminAllProducts> {
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {var displayHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -320,10 +321,10 @@ class _AdminAllProductsState extends State<AdminAllProducts> {
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(
+            return const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(
                     Icons.add,
                     color: Colors.white,
@@ -379,13 +380,13 @@ class _AdminAllProductsState extends State<AdminAllProducts> {
                       height: 90,
                       decoration: BoxDecoration(
                         color: Colors.grey.shade800,
-                        borderRadius: BorderRadius.vertical(
+                        borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(10)),
                       ),
-                      child: Icon(Icons.image,
+                      child: const Icon(Icons.image,
                           color: Colors.white, size: 80),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 5),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -394,45 +395,45 @@ class _AdminAllProductsState extends State<AdminAllProducts> {
                           children: [
                             Text(
                               productName,
-                              style: TextStyle(
+                              style:  TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                                fontSize: displayHeight*0.020,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Text(
                               productDescription,
-                              style: TextStyle(
+                              style:  TextStyle(
                                 color: Colors.white70,
-                                fontSize: 14,
+                                fontSize: displayHeight*0.015,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Row(
                               children: [
                                 Text(
-                                  '\$${productPrice}',
-                                  style: TextStyle(
+                                  '\$$productPrice',
+                                  style:  TextStyle(
                                     color: Colors.tealAccent,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                    fontSize: displayHeight*0.018,
                                   ),
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Text(
-                                  '\$${originalPrice}',
-                                  style: TextStyle(
+                                  '\$$originalPrice',
+                                  style:  TextStyle(
                                     decoration: TextDecoration.lineThrough,
                                     decorationThickness: 3,
                                     decorationColor: Colors.red,
                                     color: Colors.tealAccent,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                    fontSize: displayHeight*0.018,
                                   ),
                                 ),
                               ],
@@ -444,7 +445,7 @@ class _AdminAllProductsState extends State<AdminAllProducts> {
                     Column(
                       children: [
                         IconButton(
-                          icon: Icon(Icons.edit, color: Colors.white),
+                          icon: const Icon(Icons.edit, color: Colors.white),
                           onPressed: () => _updateProduct(
                             productId,
                             Product(
@@ -459,7 +460,7 @@ class _AdminAllProductsState extends State<AdminAllProducts> {
                           ),
                         ),
                         IconButton(
-                          icon: Icon(Icons.delete, color: Colors.red),
+                          icon: const Icon(Icons.delete, color: Colors.red),
                           onPressed: () {
                             _deleteProduct(productId);
                           },

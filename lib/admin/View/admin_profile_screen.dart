@@ -58,9 +58,10 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
         _userNameController.text = adminData?['userName'] ?? '';
         _emailController.text = adminData?['email'] ?? '';
       }
-      setState(() {}); // Update the UI after fetching data
+     if(mounted){
+       setState(() {});
+     }
     } catch (e) {
-      // Handle error fetching user data
       print('Error fetching user data: $e');
       Get.snackbar(
         'Error',
@@ -98,7 +99,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
         builder: (BuildContext bc) {
           return SafeArea(
               child: Container(
-                padding: EdgeInsets.all(9),
+                padding: const EdgeInsets.all(9),
                 height: 140,
                 width: MediaQuery.sizeOf(context).width,
                 decoration: BoxDecoration(
@@ -169,7 +170,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
         'email': _emailController.text.trim(),
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Data saved successfully')),
+        const SnackBar(content: Text('Data saved successfully')),
       );
 
 
@@ -222,7 +223,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
           IconButton(
             onPressed: () {
               FirebaseAuth.instance.signOut();
-              Get.to(() => WelcomeScreen());
+              Get.to(() => const WelcomeScreen());
             },
             icon: const Icon(Icons.logout),
           ),
@@ -267,7 +268,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                                       ),
                                     ),
                                 imageUrl: adminData?["imageUrl"])
-                                : Icon(Icons.person, size: 50, color: Colors.teal),
+                                : const Icon(Icons.person, size: 50, color: Colors.teal),
                           ),
 
 
@@ -292,7 +293,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     AppText(
                       textAlign: TextAlign.center,
                       text: '${adminData?['userName'] ?? ''} '.toUpperCase(),
@@ -331,7 +332,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                     ),
                   ],
                 )
-                    : SizedBox(
+                    : const SizedBox(
                     height: 40,
                     width: 30,
                     child: Center(

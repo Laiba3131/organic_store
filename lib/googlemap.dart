@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:ecomerance_app/Screens/googleprovider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:geocoding/geocoding.dart' as geocoding;
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -52,34 +51,34 @@ class _MapPageState extends State<MapPage> {
           GoogleMap(
             onMapCreated: (GoogleMapController controller) =>
                 _mapController.complete(controller),
-            initialCameraPosition: CameraPosition(
+            initialCameraPosition: const CameraPosition(
               target: _sourceLocation,
               zoom: 13, // Adjusted zoom level
             ),
             markers: {
               if (_currentLocation != null)
                 Marker(
-                  markerId: MarkerId("currentLocation"),
+                  markerId: const MarkerId("currentLocation"),
                   icon: BitmapDescriptor.defaultMarkerWithHue(
                       BitmapDescriptor.hueRed),
                   position: _currentLocation!,
                 ),
               if (_selectedLocation !=
-                  null) // Add a marker for the selected location
+                  null)
                 Marker(
-                  markerId: MarkerId("selectedLocation"),
+                  markerId: const MarkerId("selectedLocation"),
                   icon: BitmapDescriptor.defaultMarkerWithHue(
                       BitmapDescriptor.hueBlue),
                   position: _selectedLocation!,
                 ),
               Marker(
-                markerId: MarkerId("sourceLocation"),
+                markerId: const MarkerId("sourceLocation"),
                 icon: BitmapDescriptor.defaultMarkerWithHue(
                     BitmapDescriptor.hueRed),
                 position: _sourceLocation,
               ),
               Marker(
-                markerId: MarkerId("destinationLocation"),
+                markerId: const MarkerId("destinationLocation"),
                 icon: BitmapDescriptor.defaultMarkerWithHue(
                     BitmapDescriptor.hueRed),
                 position: _destinationLocation,
@@ -106,18 +105,18 @@ class _MapPageState extends State<MapPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Selected Address',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
                     currentAddress.isNotEmpty
                         ? currentAddress
-                        : 'Tap on the map to select a location...', // Display current address
+                        : 'Tap on the map to select a location...',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey[700],
@@ -136,7 +135,7 @@ class _MapPageState extends State<MapPage> {
           onPressed:  (){
             navigator?.pop(context);
           },
-          child: Text('Done',style: TextStyle(color:Colors.white),),
+          child: const Text('Done',style: TextStyle(color:Colors.white),),
         ),
       ),
     );
@@ -183,10 +182,6 @@ class _MapPageState extends State<MapPage> {
         setState(() {
           _currentLocation = newLocation;
           currentAddress = address;
-
-          // currentAddress = widget.Address;
-
-          // Update distance here
           if (_destinationLocation != null) {
             double distanceInMeters = Geolocator.distanceBetween(
               _currentLocation!.latitude,
@@ -229,7 +224,7 @@ class _MapPageState extends State<MapPage> {
     if (_currentLocation != null) {
       PolylineResult result = await points.getRouteBetweenCoordinates(
         googleApiKey:
-            'AIzaSyAeprVS-dONDXpY-ZBTuWk1rjNgCad7VnQ', // Replace with your API Key
+            'AIzaSyAeprVS-dONDXpY-ZBTuWk1rjNgCad7VnQ', 
         request: PolylineRequest(
           origin: PointLatLng(
               _currentLocation!.latitude, _currentLocation!.longitude),
@@ -247,7 +242,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   void generateCurrentToDestinationPolyline(List<LatLng> polylineCoordinates) {
-    PolylineId id = PolylineId("currentToDestination");
+    PolylineId id = const PolylineId("currentToDestination");
     Polyline polyline = Polyline(
       polylineId: id,
       color: Colors.blue,
@@ -275,14 +270,14 @@ class _MapPageState extends State<MapPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Distance'),
+            title: const Text('Distance'),
             content: Text('Distance to destination: $_distance'),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );

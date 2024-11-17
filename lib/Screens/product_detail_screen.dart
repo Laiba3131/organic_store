@@ -40,13 +40,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var displayHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: AppColors.primary,
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Product Details',
           textColor: Colors.white,
           fontSize: 20,
@@ -113,7 +114,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   child: AppText(
                                     text: widget.name,
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 20,
+                                    fontSize: displayHeight*0.023,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
@@ -137,16 +138,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                             });
                                           }
                                         },
-                                        child: AppText(
+                                        child:  AppText(
                                           text: '-',
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 25,
+                                          fontSize: displayHeight*0.035,
                                         ),
                                       ),
                                       AppText(
                                         text: quantity.toString(),
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 22,
+                                        fontSize: displayHeight*0.023,
                                       ),
                                       GestureDetector(
                                         onTap: () {
@@ -154,10 +155,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                             quantity++;
                                           });
                                         },
-                                        child: AppText(
+                                        child:  AppText(
                                           text: '+',
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 22,
+                                          fontSize: displayHeight*0.026,
                                         ),
                                       ),
                                     ],
@@ -165,78 +166,80 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 )
                               ],
                             ),
-                            const AppText(
-                              text: '(270 Reviews)',
+                             AppText(
+                              text: 'Rs: ${widget.price}',
                               fontWeight: FontWeight.w600,
-                              fontSize: 15,
+                              fontSize: displayHeight*0.018,
                             ),
                             const SizedBox(height: 20),
-                            const AppText(
-                              text: 'Size',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20,
-                            ),
+                            // const AppText(
+                            //   text: 'Size',
+                            //   fontWeight: FontWeight.w600,
+                            //   fontSize: 20,
+                            // ),
+                            // const SizedBox(height: 5),
+                            // SizedBox(
+                            //   height: 50,
+                            //   child: ListView.builder(
+                            //     itemCount: controller.sizeList.length,
+                            //     scrollDirection: Axis.horizontal,
+                            //     itemBuilder: (context, index) {
+                            //       return Padding(
+                            //         padding: const EdgeInsets.only(right: 10),
+                            //         child: GestureDetector(
+                            //           onTap: () {
+                            //             setState(() {
+                            //               controller.selectedIndex.value =
+                            //                   index;
+                            //             });
+                            //           },
+                            //           child: Container(
+                            //             height: 70,
+                            //             width: 70,
+                            //             decoration: BoxDecoration(
+                            //               border: Border.all(
+                            //                 color: controller
+                            //                             .selectedIndex.value ==
+                            //                         index
+                            //                     ? Colors.transparent
+                            //                     : AppColors.primary,
+                            //               ),
+                            //               borderRadius:
+                            //                   BorderRadius.circular(10),
+                            //               color:
+                            //                   controller.selectedIndex.value ==
+                            //                           index
+                            //                       ? AppColors.primary
+                            //                       : Colors.transparent,
+                            //             ),
+                            //             child: Center(
+                            //               child: AppText(
+                            //                 text: controller.sizeList[index],
+                            //                 fontWeight: FontWeight.bold,
+                            //                 textColor: controller
+                            //                             .selectedIndex.value ==
+                            //                         index
+                            //                     ? Colors.white
+                            //                     : Colors.black,
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       );
+                            //     },
+                            //   ),
+                            // ),
+                           
                             const SizedBox(height: 5),
-                            SizedBox(
-                              height: 50,
-                              child: ListView.builder(
-                                itemCount: controller.sizeList.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 10),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          controller.selectedIndex.value =
-                                              index;
-                                        });
-                                      },
-                                      child: Container(
-                                        height: 70,
-                                        width: 70,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: controller
-                                                        .selectedIndex.value ==
-                                                    index
-                                                ? Colors.transparent
-                                                : AppColors.primary,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color:
-                                              controller.selectedIndex.value ==
-                                                      index
-                                                  ? AppColors.primary
-                                                  : Colors.transparent,
-                                        ),
-                                        child: Center(
-                                          child: AppText(
-                                            text: controller.sizeList[index],
-                                            fontWeight: FontWeight.bold,
-                                            textColor: controller
-                                                        .selectedIndex.value ==
-                                                    index
-                                                ? Colors.white
-                                                : Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            const AppText(
+                             AppText(
                               text: 'Description',
-                              fontSize: 20,
+                              fontSize: displayHeight*0.023,
                               fontWeight: FontWeight.w600,
                             ),
                             const SizedBox(height: 10),
                             AppText(
-                              text: widget.price,
+                              text: widget.description,
+                              fontSize: displayHeight*0.018,
                             ),
                             const Spacer(),
                             Container(
@@ -278,6 +281,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                         );
                                         setState(() {
                                           cartItems.add(docRef);
+                                          print('cartItems:${cartItems.length}');
                                         });
                                         Get.to(() => CartScreen());
                                       } catch (e) {
@@ -304,7 +308,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   String _calculateTotalPrice() {
     // Convert the price from String to double
     double price =
-        double.tryParse(widget.description.replaceAll(RegExp(r'[^\d.]'), '')) ??
+        double.tryParse(widget.price.replaceAll(RegExp(r'[^\d.]'), '')) ??
             0.0;
 
     // Calculate the total price

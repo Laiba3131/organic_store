@@ -4,14 +4,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../AppColors/appcolors.dart';
 
-class AllItem extends StatefulWidget {
-  const AllItem({super.key});
+
+class vegetableItem extends StatefulWidget {
+  const vegetableItem({super.key});
 
   @override
-  State<AllItem> createState() => _AllItemState();
+  State<vegetableItem> createState() => _vegetableItemState();
 }
 
-class _AllItemState extends State<AllItem> {
+class _vegetableItemState extends State<vegetableItem> {
   late String userId;
   List<String> favoriteDocIds = [];
   bool startsValue = false;
@@ -21,6 +22,9 @@ class _AllItemState extends State<AllItem> {
     super.initState();
     getUserId();
     loadFavorites();
+     print('####${FirebaseFirestore.instance
+            .collection('addproducts')
+            .where('productCategory', isEqualTo: 'Vegetables').snapshots()}');
   }
 
   Future<void> getUserId() async {
@@ -43,6 +47,7 @@ class _AllItemState extends State<AllItem> {
 
     setState(() {
       favoriteDocIds = snapshot.docs.map((doc) => doc.id).toList();
+       print('favoriteDocIds:${favoriteDocIds.length}');
     });
   }
 
@@ -51,14 +56,17 @@ class _AllItemState extends State<AllItem> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('addproducts').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('addproducts')
+            .where('productCategory', isEqualTo: 'Vegetables')
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.primary,));
+            return Center(child: CircularProgressIndicator(color: AppColors.primary,));
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Center(
+            return Center(
               child: Text(
                 'No products found.',
                 style: TextStyle(color: Colors.white),
@@ -76,19 +84,18 @@ class _AllItemState extends State<AllItem> {
               'docId': doc.id,
             };
           }).toList();
-
+          print('products$products');
           return GridView.builder(
             itemCount: products.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 0.7,
+             childAspectRatio: 0.7,
               crossAxisCount: 2,
               crossAxisSpacing: 5,
               mainAxisSpacing: 5,
             ),
             itemBuilder: (context, index) {
               final product = products[index];
-              return   TrendingProductContainer(
-                isMargin:false,
+              return   TrendingProductContainer(isMargin:false,
       image: product['productImage'],
       name: product['productName'],
       description: product['productDescription'],
@@ -101,7 +108,8 @@ class _AllItemState extends State<AllItem> {
           _toggleFavorite(favoriteDocIds.contains(docId), docId);
         });
       },
-    );   },
+    );
+            },
           );
         },
       ),
@@ -111,6 +119,7 @@ class _AllItemState extends State<AllItem> {
 
   Future<void> _toggleFavorite(bool isFavorite, String docId) async {
     if (isFavorite) {
+      // Remove from favorites
       await FirebaseFirestore.instance
           .collection('favorites')
           .doc(userId)
@@ -121,6 +130,7 @@ class _AllItemState extends State<AllItem> {
         favoriteDocIds.remove(docId);
       });
     } else {
+      // Add to favorites
       await FirebaseFirestore.instance
           .collection('favorites')
           .doc(userId)

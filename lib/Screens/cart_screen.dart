@@ -58,7 +58,7 @@ class _CartScreenState extends State<CartScreen> {
 
       for (var doc in querySnapshot.docs) {
         double price = double.tryParse(
-            doc['productPrice'].replaceAll(RegExp(r'[^\d.]'), '')) ??
+            doc['productDescription'].replaceAll(RegExp(r'[^\d.]'), '')) ??
             0.0;
         int quantity = doc['quantity'];
         tempSubtotal += price * quantity;
@@ -99,6 +99,8 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
+       var displayHeight = MediaQuery.of(context).size.height;
+    var displayWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -122,7 +124,7 @@ class _CartScreenState extends State<CartScreen> {
         ],
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator(color: AppColors.primary,))
+          ? const Center(child: CircularProgressIndicator(color: AppColors.primary,))
           : Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -132,7 +134,7 @@ class _CartScreenState extends State<CartScreen> {
                 itemCount: cartItems.length,
                 itemBuilder: (context, index) {
                   var product = cartItems[index];
-                  return _buildCartItem(product);
+                  return _buildCartItem(product,displayHeight*0.013,displayHeight*0.18,displayWidth*0.33,displayHeight*0.022);
                 },
               ):Image.asset('assets/images/nodata.webp',color: AppColors.primary,height: 150,width: 150,),
             ),
@@ -165,7 +167,7 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget _buildCartItem(CartItem product) {
+  Widget _buildCartItem(CartItem product,displayHeightOfFontsize,displayHeight,displayWidth,fontSizeOfHeading) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
@@ -183,25 +185,24 @@ class _CartScreenState extends State<CartScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            height: 116,
-            width: 120,
+          SizedBox(
+            height:displayHeight ,
+            width: displayWidth,
             child: ClipRRect(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     bottomLeft: Radius.circular(10)),
                 child: Image.network(product.productImage,
-                    width: 80, fit: BoxFit.fill)),
+                    fit: BoxFit.fill)),
           ),
-          SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   AppText(
                     text: product.productName,
-                    fontSize: 16,
+                    fontSize: fontSizeOfHeading,
                     fontWeight: FontWeight.bold,
                     textColor: AppColors.primary,
                   ),
@@ -216,8 +217,9 @@ class _CartScreenState extends State<CartScreen> {
                 ],
               ),
               AppText(
+                overflow: TextOverflow.ellipsis,
                 text: product.productDescription,
-                fontSize: 14,
+                fontSize: displayHeightOfFontsize,
                 textColor: Colors.grey,
               ),
               Row(
@@ -226,11 +228,11 @@ class _CartScreenState extends State<CartScreen> {
                 children: [
                   AppText(
                     text: '\$${product.productPrice.toStringAsFixed(2)}',
-                    fontSize: 16,
+                    fontSize: fontSizeOfHeading,
                     fontWeight: FontWeight.bold,
                     textColor: AppColors.primary,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -241,7 +243,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       AppText(
                         text: '${product.quantity}',
-                        fontSize: 16,
+                        fontSize: fontSizeOfHeading,
                         fontWeight: FontWeight.bold,
                         textColor: AppColors.primary,
                       ),
@@ -276,7 +278,7 @@ class _CartScreenState extends State<CartScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AppText(
+            const AppText(
               text: 'Sub-total',
               fontSize: 16,
               fontWeight: FontWeight.w400,

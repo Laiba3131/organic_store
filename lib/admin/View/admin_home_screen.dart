@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../CustomWidgets/CustomButton.dart';
@@ -22,7 +21,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Admin Dashboard',
           fontSize: 20,
         ),
@@ -38,7 +37,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 bgColor: Colors.teal,
                 labelColor: Colors.white,
                 onTap: (){
-                  Get.to(()=>AdminAllOrders());
+                  Get.to(()=>const AdminAllOrders());
                 },
                 label: 'All Orders',
               )

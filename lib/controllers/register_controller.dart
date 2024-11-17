@@ -36,18 +36,34 @@ class RegisterController extends GetxController {
 
         Get.to(() => SignInScreen());
         reset(); // Clear form fields and error message
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'email-already-in-use') {
-          errorMessage.value = 'The email address is already in use by another account.';
-        } else {
-          errorMessage.value = 'An error occurred. Please try again later.';
-        }
       } catch (e) {
-        errorMessage.value = 'An error occurred. Please try again later.';
-        print('Error: $e');
-      } finally {
-        isLoading.value = false;
+    String errorMessage;
+    if (e is FirebaseAuthException) {
+      switch (e.code) {
+        case 'email-already-in-use':
+          errorMessage = 'The email address is already in use by another account.';
+          break;
+        case 'invalid-email':
+          errorMessage = 'The email address is not valid.';
+          break;
+        case 'weak-password':
+          errorMessage = 'The password is too weak.';
+          break;
+        default:
+          errorMessage = 'An unknown error occurred.';
       }
+    } else {
+      errorMessage = 'An error occurred. Please try again.';
+    }
+
+    Get.snackbar(
+      'Error',
+      'Failed to register: $errorMessage',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.red,
+      colorText: Colors.white,
+    );
+  }
     }
   }
 

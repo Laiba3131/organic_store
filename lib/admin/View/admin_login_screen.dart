@@ -41,7 +41,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
+                  const Center(
                     child: AppText(
                       text: 'Login your account',
                       fontSize: 20,
@@ -49,9 +49,9 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
 
                     ),
                   ),
-                  SizedBox(height: 20),
-                  AppText(text: 'Email', fontSize: 16),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 20),
+                  const AppText(text: 'Email', fontSize: 16),
+                  const SizedBox(height: 10),
                   CustomTextFormField(
                     hintText: 'Enter your Email',
                     controller: controller.emailController,
@@ -65,9 +65,9 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 10),
-                  AppText(text: 'Password', fontSize: 16,),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
+                  const AppText(text: 'Password', fontSize: 16,),
+                  const SizedBox(height: 10),
                   CustomTextFormField(
                     hintText: 'Enter your Password',
                     controller: controller.passwordController,
@@ -79,7 +79,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   Obx(() {
                     return Column(
                       children: [
@@ -94,13 +94,13 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                           bgColor: controller.isLoading.value ? Colors
                               .grey : Colors.teal,
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         if (controller.errorMessage
                             .isNotEmpty) // Display error message if not empty
                           Center(
                             child: Text(
                               controller.errorMessage.value,
-                              style: TextStyle(color: Colors.red),
+                              style: const TextStyle(color: Colors.red),
                             ),
                           ),
                       ],

@@ -1,12 +1,10 @@
 import 'package:ecomerance_app/CustomWidgets/CustomButton.dart';
+import 'package:ecomerance_app/Screens/common_signup_screen.dart';
 import 'package:ecomerance_app/Screens/signin_screen.dart';
-import 'package:ecomerance_app/Screens/signup_screen.dart';
 import 'package:ecomerance_app/admin/View/admin_login_screen.dart';
-import 'package:ecomerance_app/routes/route_name.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../AppColors/appcolors.dart';
 import '../CustomWidgets/appText.dart';
 
@@ -27,7 +25,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
                   'assets/images/splashicon.png',
@@ -39,58 +37,60 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   fontSize: 50,
                   fontWeight: FontWeight.bold,
                 ),
-                CustomButton(
-                  label: 'Continue with Facebook',
-                  borderColor: Colors.grey.withOpacity(.5),
-                  imagePath: 'assets/icons/facebook.svg',
-                ),
-                CustomButton(
-                  label: 'Continue with Google',
-                  borderColor: Colors.grey.withOpacity(.5),
-                  imagePath: 'assets/icons/google.svg',
-                ),
-                CustomButton(
-                  label: 'Continue with Apple',
-                  borderColor: Colors.grey.withOpacity(.5),
-                  imagePath: 'assets/icons/apple.svg',
-                ),
-                SizedBox(height: 10),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(child: Divider(color: Colors.grey)),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: AppText(text: "Or", fontSize: 12),
-                      ),
-                      Expanded(child: Divider(color: Colors.grey)),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10),
+                // CustomButton(
+                //   label: 'Continue with Facebook',
+                //   borderColor: Colors.grey.withOpacity(.5),
+                //   imagePath: 'assets/icons/facebook.svg',
+                // ),
+                // CustomButton(
+                //   label: 'Continue with Google',
+                //   borderColor: Colors.grey.withOpacity(.5),
+                //   imagePath: 'assets/icons/google.svg',
+                // ),
+                // CustomButton(
+                //   label: 'Continue with Apple',
+                //   borderColor: Colors.grey.withOpacity(.5),
+                //   imagePath: 'assets/icons/apple.svg',
+                // ),
+                // const SizedBox(height: 10),
+                // const Padding(
+                //   padding: EdgeInsets.symmetric(horizontal: 10),
+                //   child: Row(
+                //     children: <Widget>[
+                //       Expanded(child: Divider(color: Colors.grey)),
+                //       Padding(
+                //         padding: EdgeInsets.symmetric(horizontal: 5),
+                //         child: AppText(text: "Or", fontSize: 12),
+                //       ),
+                //       Expanded(child: Divider(color: Colors.grey)),
+                //     ],
+                //   ),
+                // ),
+                const SizedBox(height: 10),
                 CustomButton(
                   onTap: () {
-                    Get.to(()=>AdminLoginScreen());
+                    Get.to(()=>const AdminLoginScreen());
                   },
-                  label: 'Sign in as admin',
+                  label: 'Login as admin',
                   bgColor: AppColors.primary,
                   labelColor: Colors.white,
                   borderRadius: 50,
                   height: 50,
                 ),
-
+                const SizedBox(height: 10),
                 CustomButton(
                   onTap: () {
-                    Get.to(()=>SignInScreen());
+                    Get.to(()=>const SignInScreen());
                   },
-                  label: 'Sign in as user',
+                  label: 'Login as user',
                   bgColor: AppColors.primary,
                   labelColor: Colors.white,
                   borderRadius: 50,
                   height: 50,
                 ),
+                const SizedBox(height: 10),
                 RichText(
+                  textAlign: TextAlign.right,
                   text: TextSpan(
                     text: "Don’t have an account ?  ",
                     style: const TextStyle(
@@ -102,7 +102,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Get.to(()=>SignUpScreen());
+                            Get.to(()=>CommonSignupScreen());
                           },
                         text: 'sign up',
                         style: const TextStyle(

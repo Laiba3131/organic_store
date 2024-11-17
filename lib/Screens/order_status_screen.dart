@@ -44,11 +44,11 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
         future: getCurrentUserId(),
         builder: (BuildContext context, AsyncSnapshot<String> userIdSnapshot) {
           if (userIdSnapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator(color: AppColors.primary,));
+            return const Center(child: CircularProgressIndicator(color: AppColors.primary,));
           } else if (userIdSnapshot.hasError) {
             return Center(child: Text('Error: ${userIdSnapshot.error}'));
           } else if (!userIdSnapshot.hasData) {
-            return Center(child: Text('Unable to retrieve user information.'));
+            return const Center(child: Text('Unable to retrieve user information.'));
           }
 
           String userId = userIdSnapshot.data!;
@@ -60,7 +60,7 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                 .snapshots(),
             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator(color: AppColors.primary,));
+                return const Center(child: CircularProgressIndicator(color: AppColors.primary,));
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
@@ -68,8 +68,8 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset('assets/images/nodata.webp', height: 150, width: 150,color: AppColors.primary,),
-                    SizedBox(height: 10,),
-                    Text('No orders found',style: TextStyle(color: Colors.white),),
+                    const SizedBox(height: 10,),
+                    const Text('No orders found',style: TextStyle(color: Colors.white),),
                   ],
                 ));
               }
@@ -106,7 +106,7 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           'Orders placed on $currentDate',
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                       ),
                       ...ordersOnDate.map((order) => Container(
@@ -122,34 +122,34 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                           children: [
                             Row(
                               children: [
-                                AppText(
+                                const AppText(
                                   text: 'Order No: ',
                                   fontWeight: FontWeight.w600,
                                   fontSize: 14,
                                   textColor: Colors.white,
                                 ),
                                 Container(
-                                  padding: EdgeInsets.all(4),
+                                  padding: const EdgeInsets.all(4),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
                                     color: Colors.cyanAccent.shade700,
                                   ),
                                   child: AppText(
-                                    text: '${order.orderNo}',
+                                    text: order.orderNo,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 10,
                                     textColor: Colors.white,
                                   ),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 Container(
-                                  padding: EdgeInsets.all(4),
+                                  padding: const EdgeInsets.all(4),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
                                     color: _getStatusColor(order.status),
                                   ),
                                   child: AppText(
-                                    text: '${order.status}',
+                                    text: order.status,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 10,
                                     textColor: Colors.white,
@@ -168,13 +168,13 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                             const SizedBox(height: 10),
                             Row(
                               children: [
-                                AppText(
+                                const AppText(
                                   text: 'Payment Method: ',
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                   textColor: Colors.white,
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 SvgPicture.asset(
                                   _getPaymentMethodIcon(order.paymentMethod),
                                   width: 20,
@@ -191,10 +191,8 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                               ],
                             ),
                             const SizedBox(height: 5),
-
-
-                            const SizedBox(height: 10),
-                            AppText(
+                             const SizedBox(height: 10),
+                            const AppText(
                               text: 'Ordered Items:',
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -247,7 +245,7 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                AppText(
+                                const AppText(
                                   text: 'Shipping Amount:',
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
@@ -262,12 +260,12 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                               ],
                             ),
                             const SizedBox(height: 10),
-                            Divider(color: Colors.white,),
+                            const Divider(color: Colors.white,),
                             const SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                AppText(
+                                const AppText(
                                   text: 'Total Amount:',
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,

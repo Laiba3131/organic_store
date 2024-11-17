@@ -20,10 +20,10 @@ class _AdminBottomNevigationBarState extends State<AdminBottomNevigationBar> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    AdminHomeScreen(),
-    AdminAllPosts(),
-    AdminAllProducts(),
-    AdminProfileScreen()
+    const AdminHomeScreen(),
+    const AdminAllPosts(),
+    const AdminAllProducts(),
+    const AdminProfileScreen()
   ];
 
   @override
@@ -32,36 +32,38 @@ class _AdminBottomNevigationBarState extends State<AdminBottomNevigationBar> {
       body: _screens[_currentIndex],
       bottomNavigationBar: SalomonBottomBar(
         backgroundColor: Colors.black,
-        margin: EdgeInsets.symmetric(vertical: 8),
+        margin: const EdgeInsets.symmetric(vertical: 8),
         currentIndex: _currentIndex,
         onTap: (index) {
-          setState(() {
+         if(mounted){
+           setState(() {
             _currentIndex = index;
           });
+         }
         },
         items: [
           SalomonBottomBarItem(
-              icon: Icon(Icons.home),
-              title: Text("Dashbord"),
+              icon: const Icon(Icons.home),
+              title: const Text("Dashbord"),
               selectedColor: Colors.teal,
               unselectedColor: Colors.white
           ),
           SalomonBottomBarItem(
-              icon: Icon(Icons.post_add_outlined),
-              title: Text("Posts"),
+              icon: const Icon(Icons.post_add_outlined),
+              title: const Text("Posts"),
               selectedColor: Colors.teal,
               unselectedColor: Colors.white
           ),
           SalomonBottomBarItem(
-              icon: Icon(Icons.add_shopping_cart),
-              title: Text("Products"),
+              icon: const Icon(Icons.add_shopping_cart),
+              title: const Text("Products"),
               selectedColor: Colors.teal,
               unselectedColor: Colors.white
           ),
 
           SalomonBottomBarItem(
-              icon: Icon(Icons.person),
-              title: Text("Profile"),
+              icon: const Icon(Icons.person),
+              title: const Text("Profile"),
               selectedColor: Colors.teal,
               unselectedColor: Colors.white
           ),

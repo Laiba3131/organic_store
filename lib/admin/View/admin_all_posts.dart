@@ -25,9 +25,11 @@ class _AdminAllPostsState extends State<AdminAllPosts> {
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
     if (pickedFile != null) {
-      setState(() {
+     if(mounted){
+       setState(() {
         _selectedImage = File(pickedFile.path);
       });
+     }
     }
   }
 
@@ -35,7 +37,7 @@ class _AdminAllPostsState extends State<AdminAllPosts> {
     try {
       await _firestore.collection('createPosts').doc(postId).delete();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Post deleted successfully')),
+        const SnackBar(content: Text('Post deleted successfully')),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -61,7 +63,7 @@ class _AdminAllPostsState extends State<AdminAllPosts> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: Text('Update Product'),
+              title: const Text('Update Product'),
               content: Form(
                 key: _updatePostKey,
                 child: SingleChildScrollView(
@@ -71,7 +73,9 @@ class _AdminAllPostsState extends State<AdminAllPosts> {
                       GestureDetector(
                         onTap: () async {
                           await _pickImage(ImageSource.gallery);
-                          setState(() {}); // Update the dialog state
+                          if(mounted){
+                            setState(() {}); 
+                          }
                         },
                         child: Container(
                           height: 160,
@@ -95,12 +99,12 @@ class _AdminAllPostsState extends State<AdminAllPosts> {
                                       child: Image.network(post.postImage!,
                                           fit: BoxFit.cover),
                                     )
-                                  : Icon(Icons.add, color: Colors.white),
+                                  : const Icon(Icons.add, color: Colors.white),
                         ),
                       ),
                       TextFormField(
                         controller: _nameController,
-                        decoration: InputDecoration(labelText: 'Product Name'),
+                        decoration: const InputDecoration(labelText: 'Product Name'),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter the product name';
@@ -111,7 +115,7 @@ class _AdminAllPostsState extends State<AdminAllPosts> {
                       TextFormField(
                         controller: _descriptionController,
                         decoration:
-                            InputDecoration(labelText: 'Product Description'),
+                            const InputDecoration(labelText: 'Product Description'),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter the product description';
@@ -128,7 +132,7 @@ class _AdminAllPostsState extends State<AdminAllPosts> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('Cancel'),
+                  child: const Text('Cancel'),
                 ),
                 CustomButton(
                   bgColor: Colors.teal,
@@ -179,7 +183,7 @@ class _AdminAllPostsState extends State<AdminAllPosts> {
                                 'postImage': imageUrl,
                               });
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
+                                const SnackBar(
                                     content: Text('Post updated successfully')),
                               );
                               Navigator.of(context).pop();
@@ -206,21 +210,21 @@ class _AdminAllPostsState extends State<AdminAllPosts> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {var displayHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'All Posts',
           fontSize: 20,
         ),
         actions: [
           IconButton(
             onPressed: () {
-              Get.to(() => AdminCreatePost());
+              Get.to(() => const AdminCreatePost());
             },
-            icon: Icon(Icons.add,),
+            icon: const Icon(Icons.add,),
           ),
         ],
       ),
@@ -228,7 +232,7 @@ class _AdminAllPostsState extends State<AdminAllPosts> {
         stream: _firestore.collection('createPosts').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
@@ -241,10 +245,10 @@ class _AdminAllPostsState extends State<AdminAllPosts> {
                     height: 150,
                     width: 150,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Text(
+                  const Text(
                     'No post found.',
                     style: TextStyle(color: Colors.white),
                   ),
@@ -296,51 +300,55 @@ class _AdminAllPostsState extends State<AdminAllPosts> {
                             height: 90,
                             decoration: BoxDecoration(
                               color: Colors.grey.shade800,
-                              borderRadius: BorderRadius.vertical(
+                              borderRadius: const BorderRadius.vertical(
                                   top: Radius.circular(10)),
                             ),
-                            child: Icon(Icons.image,
+                            child: const Icon(Icons.image,
                                 color: Colors.white, size: 80),
                           ),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            post.postName,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              post.postName,
+                              style:  TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: displayHeight*0.020,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          SizedBox(height: 5),
-                          AppText(
-                            text: post.postDescription,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            textColor: Colors.white,
-                          )
-                        ],
+                            const SizedBox(height: 5),
+                            Text(
+                               post.postDescription,
+                            style:  TextStyle(
+                                color: Colors.white,
+                                fontSize: displayHeight*0.015,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Spacer(),
                     Column(
                       children: [
                         IconButton(
-                          icon: Icon(Icons.edit, color: Colors.white),
+                          icon: const Icon(Icons.edit, color: Colors.white),
                           onPressed: () {
                             _updatePost(postId, post);
                           },
                         ),
                         IconButton(
-                          icon: Icon(Icons.delete, color: Colors.red),
+                          icon: const Icon(Icons.delete, color: Colors.red),
                           onPressed: () {
                             _deletePost(postId);
                           },

@@ -20,19 +20,19 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Colors.black,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Admin All Orders',
           style: TextStyle(color: Colors.white),
         ),
         actions: [
           IconButton(
             onPressed: () {
-              Get.to(() => AdminOrderHistory());
+              Get.to(() => const AdminOrderHistory());
             },
-            icon: Icon(Icons.history),
+            icon: const Icon(Icons.history),
           ),
         ],
       ),
@@ -40,11 +40,11 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
         stream: FirebaseFirestore.instance.collection('orders').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(
+            return const Center(
               child: Text(
                 'No orders found.',
                 style: TextStyle(color: Colors.white),
@@ -87,7 +87,7 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'Orders placed on $currentDate',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -107,38 +107,38 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
                       children: [
                         Row(
                           children: [
-                            AppText(
+                            const AppText(
                               text: 'Order No: ',
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
                               textColor: Colors.white,
                             ),
                             Container(
-                              padding: EdgeInsets.all(4),
+                              padding: const EdgeInsets.all(4),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
                                 color: Colors.cyanAccent.shade700,
                               ),
                               child: AppText(
-                                text: '${order.orderNo}',
+                                text: order.orderNo,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 10,
                                 textColor: Colors.white,
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             GestureDetector(
                               onTap: () {
                                 _showStatusUpdateDialog(order);
                               },
                               child: Container(
-                                padding: EdgeInsets.all(4),
+                                padding: const EdgeInsets.all(4),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   color: _getStatusColor(order.status),
                                 ),
                                 child: AppText(
-                                  text: '${order.status}',
+                                  text: order.status,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
                                   textColor: Colors.white,
@@ -157,13 +157,13 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
                         const SizedBox(height: 10),
                         Row(
                           children: [
-                            AppText(
+                            const AppText(
                               text: 'Payment Method: ',
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                               textColor: Colors.white,
                             ),
-                            Spacer(),
+                            const Spacer(),
                             SvgPicture.asset(
                               _getPaymentMethodIcon(order.paymentMethod),
                               width: 20,
@@ -181,7 +181,7 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
                         ),
                         const SizedBox(height: 5),
                         const SizedBox(height: 10),
-                        AppText(
+                        const AppText(
                           text: 'Ordered Items:',
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
@@ -235,7 +235,7 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            AppText(
+                            const AppText(
                               text: 'Shipping Amount:',
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -250,14 +250,14 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
                           ],
                         ),
                         const SizedBox(height: 10),
-                        Divider(
+                        const Divider(
                           color: Colors.white,
                         ),
                         const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            AppText(
+                            const AppText(
                               text: 'Total Amount:',
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -330,19 +330,19 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
           children: [
             Row(
               children: [
-                Text(
+                const Text(
                   'Current Status: ',
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
-                Text('${order.status}'),
+                Text(order.status),
               ],
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Select New Status:',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -353,25 +353,25 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
                       newStatus = 'Pending';
                     });
                   }),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   _buildStatusButton('Processing', newStatus, () {
                     setState(() {
                       newStatus = 'Processing';
                     });
                   }),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   _buildStatusButton('Shipped', newStatus, () {
                     setState(() {
                       newStatus = 'Shipped';
                     });
                   }),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   _buildStatusButton('Delivered', newStatus, () {
                     setState(() {
                       newStatus = 'Delivered';
                     });
                   }),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   _buildStatusButton('Cancelled', newStatus, () {
                     setState(() {
                       newStatus = 'Cancelled';
@@ -385,7 +385,7 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancel'),
+            child: const Text('Cancel'),
           ),
           TextButton(
             onPressed: () {
@@ -397,7 +397,7 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
               // Pass the document ID here
               Navigator.pop(context);
             },
-            child: Text('Update'),
+            child: const Text('Update'),
           ),
         ],
       ),
@@ -409,7 +409,9 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
     return TextButton(
       onPressed: () {
         onPressed();
-        setState(() {});
+        if(mounted){
+          setState(() {});
+        }
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
@@ -418,7 +420,7 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
       ),
       child: Text(
         status,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
@@ -445,11 +447,11 @@ class _AdminAllOrdersState extends State<AdminAllOrders> {
 
         // Successfully updated
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Order updated successfully')),
+          const SnackBar(content: Text('Order updated successfully')),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Order not found')),
+          const SnackBar(content: Text('Order not found')),
         );
       }
     } catch (error) {

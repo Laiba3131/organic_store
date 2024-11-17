@@ -65,6 +65,9 @@ dependencies:
   speech_to_text: ^6.6.0
   googleapis_auth: ^1.6.0
   translator: ^1.0.0
+  sizer: ^3.0.0
+  firebase_messaging:
+  firebase_analytics:
 
 
 dev_dependencies:

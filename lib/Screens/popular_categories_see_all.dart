@@ -3,7 +3,6 @@ import 'package:ecomerance_app/Screens/product_detail_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../AppColors/appcolors.dart';
 import '../../CustomWidgets/appText.dart';
 
@@ -55,20 +54,20 @@ class _PopularCategoriesSeeAllState extends State<PopularCategoriesSeeAll> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: AppColors.primary,
-        title: AppText(text: 'Popular Categories', fontSize: 20, textColor: Colors.white),
+        title: const AppText(text: 'Popular Categories', fontSize: 20, textColor: Colors.white),
         centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('addproducts').where('productType', isEqualTo: 'Popular').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator(color: AppColors.primary,));
+            return const Center(child: CircularProgressIndicator(color: AppColors.primary,));
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(
+            return const Center(
               child: Text(
                 'No products found.',
                 style: TextStyle(color: Colors.white),
@@ -239,8 +238,8 @@ class _PopularCategoriesSeeAllState extends State<PopularCategoriesSeeAll> {
                 width: 30,
                 height: 30,
                 child: isFavorite
-                    ? Icon(Icons.favorite, color: Colors.red)
-                    : Icon(Icons.favorite_outline, color: Colors.grey),
+                    ? const Icon(Icons.favorite, color: Colors.red)
+                    : const Icon(Icons.favorite_outline, color: Colors.grey),
               ),
             ),
           ),

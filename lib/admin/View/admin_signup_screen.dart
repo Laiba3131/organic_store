@@ -1,12 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../CustomWidgets/CustomButton.dart';
 import '../../CustomWidgets/appText.dart';
 import '../Auth/admin_firestore.dart';
@@ -30,44 +26,55 @@ class _AdminSignUpScreenState extends State<AdminSignUpScreen> {
 
   Future<void> registerAdmin(String email, String password) async {
     try {
-      // Validate the form
       if (_adminRegisterFormKey.currentState!.validate()) {
-        // Register the admin user in Firebase Authentication (not shown here)
-
-        // Store data in Firestore under "admin" collection
         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
         );
         await AdminFirestoreService().addAdminToFirestore(
           emailController.text,
-          passwordController.text,
           userNameController.text,
           '',
-
+          passwordController.text,
         );
-
-        // Show success message or navigate to next screen
         Get.snackbar(
           'Success',
           'Admin registered successfully',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.teal,
           colorText: Colors.white,
         );
-        Get.to(() => AdminLoginScreen());
+        Get.to(() => const AdminLoginScreen());
       }
     } catch (e) {
-      // Handle errors (e.g., Firebase errors)
-      Get.snackbar(
-        'Error',
-        'Failed to register admin: $e',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
+    String errorMessage;
+    if (e is FirebaseAuthException) {
+      switch (e.code) {
+        case 'email-already-in-use':
+          errorMessage = 'The email address is already in use by another account.';
+          break;
+        case 'invalid-email':
+          errorMessage = 'The email address is not valid.';
+          break;
+        case 'weak-password':
+          errorMessage = 'The password is too weak.';
+          break;
+        default:
+          errorMessage = 'An unknown error occurred.';
+      }
+    } else {
+      errorMessage = 'An error occurred. Please try again.';
     }
+
+    Get.snackbar(
+      'Error',
+      'Failed to register admin: $errorMessage',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.red,
+      colorText: Colors.white,
+    );
   }
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +90,7 @@ class _AdminSignUpScreenState extends State<AdminSignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppText(text: 'Email', fontSize: 16),
+                    const AppText(text: 'Email', fontSize: 16),
                     TextFormField(
                       controller: userNameController,
                       validator: (value) {
@@ -93,14 +100,14 @@ class _AdminSignUpScreenState extends State<AdminSignUpScreen> {
                         // You can add more complex email validation if needed
                         return null;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Enter your Name',
                         border: OutlineInputBorder(),
                       ),
                     ),
                     // Email field with validation
-                    AppText(text: 'Email', fontSize: 16),
-                    SizedBox(height: 10),
+                    const AppText(text: 'Email', fontSize: 16),
+                    const SizedBox(height: 10),
                     TextFormField(
                       controller: emailController,
                       validator: (value) {
@@ -110,15 +117,15 @@ class _AdminSignUpScreenState extends State<AdminSignUpScreen> {
                         // You can add more complex email validation if needed
                         return null;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Enter your Email',
                         border: OutlineInputBorder(),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
 
                     // Password field with validation
-                    AppText(text: 'Password', fontSize: 16),
+                    const AppText(text: 'Password', fontSize: 16),
                     const SizedBox(height: 10),
                     TextFormField(
                       controller: passwordController,
@@ -130,12 +137,12 @@ class _AdminSignUpScreenState extends State<AdminSignUpScreen> {
                         return null;
                       },
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Enter your Password',
                         border: OutlineInputBorder(),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
 
                     CustomButton(
                       onTap: () {
@@ -144,33 +151,34 @@ class _AdminSignUpScreenState extends State<AdminSignUpScreen> {
                         }
                       },
                       label: 'Register',
-                      bgColor: Colors.green,
+                      bgColor:Colors.teal,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Center(
                       child: RichText(
                         text: TextSpan(
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15.0,
                             color: Colors.black,
                           ),
                           children: [
-                            TextSpan(
+                            const TextSpan(
                               text: "Already have an account?",
                             ),
                             TextSpan(
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Get.to(() => AdminLoginScreen());
+                                  Get.to(() => const AdminLoginScreen());
                                 },
                               text: ' Login',
-                              style: TextStyle(color: Colors.green),
+                              style: const TextStyle(color:
+                             Colors.teal),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                   ],
                 ),

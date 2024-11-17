@@ -99,9 +99,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           activeColor: AppColors.primary,
                           value: checkValue,
                           onChanged: (value) {
-                            setState(() {
+                           if(mounted){
+                             setState(() {
                               checkValue = value!;
                             });
+                           }
                           }),
                       const AppText(
                         text: 'Remember me',
@@ -126,40 +128,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 50,
                    );
                   }),
-
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(child: Divider(color: Colors.grey)),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          child: AppText(text: "Or Continue with", fontSize: 12),
-                        ),
-                        Expanded(child: Divider(color: Colors.grey)),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      CustomIconButton(
-                        imgPath: 'assets/icons/facebook.svg',
-                      ),
-                      CustomIconButton(
-                        imgPath: 'assets/icons/google.svg',
-                      ),
-                      CustomIconButton(
-                        imgPath: 'assets/icons/apple.svg',
-                      ),
-                    ],
-                  ),
                   const SizedBox(
                     height: 40,
                   ),

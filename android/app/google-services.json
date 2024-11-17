@@ -1,13 +1,51 @@
 {
   "project_info": {
-    "project_number": "775805594684",
-    "project_id": "organicstore-18448",
-    "storage_bucket": "organicstore-18448.firebasestorage.app"
+    "project_number": "343755474270",
+    "project_id": "organicstore-5783c",
+    "storage_bucket": "organicstore-5783c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:775805594684:android:5257d3cf78227d15766739",
+        "mobilesdk_app_id": "1:343755474270:android:542c12405bff971d16fbcf",
+        "android_client_info": {
+          "package_name": "com.example.live_score"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCij8jMh-arwEUMWHNbDSqFBgafo73v5eI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343755474270:android:5d873dddcd1b169316fbcf",
+        "android_client_info": {
+          "package_name": "com.example.organicstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCij8jMh-arwEUMWHNbDSqFBgafo73v5eI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343755474270:android:e96548a9d42821fe16fbcf",
         "android_client_info": {
           "package_name": "com.example.stripe_project"
         }
@@ -15,7 +53,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBI0x_qopkqWP65H82JQ9OTvIDFHcJEem8"
+          "current_key": "AIzaSyCij8jMh-arwEUMWHNbDSqFBgafo73v5eI"
         }
       ],
       "services": {

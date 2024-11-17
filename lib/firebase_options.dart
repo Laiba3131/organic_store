@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -53,10 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBI0x_qopkqWP65H82JQ9OTvIDFHcJEem8',
-    appId: '1:775805594684:android:5257d3cf78227d15766739',
-    messagingSenderId: '775805594684',
-    projectId: 'organicstore-18448',
-    storageBucket: 'organicstore-18448.firebasestorage.app',
+    apiKey: 'AIzaSyCij8jMh-arwEUMWHNbDSqFBgafo73v5eI',
+    appId: '1:343755474270:android:e96548a9d42821fe16fbcf',
+    messagingSenderId: '343755474270',
+    projectId: 'organicstore-5783c',
+    storageBucket: 'organicstore-5783c.appspot.com',
   );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyDw9WdjR5iZqZNoF2ev-EQBm3KE5pvNCSY',
+    appId: '1:343755474270:ios:b5e6b087881afb3d16fbcf',
+    messagingSenderId: '343755474270',
+    projectId: 'organicstore-5783c',
+    storageBucket: 'organicstore-5783c.appspot.com',
+    iosBundleId: 'com.example.ecomeranceApp',
+  );
+
 }

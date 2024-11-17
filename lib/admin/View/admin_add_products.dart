@@ -214,7 +214,7 @@ class _AdminAddProductsState extends State<AdminAddProducts> {
                       },
                     ),
                     const SizedBox(height: 10),
-                    AppText(text: 'Product Description', fontSize: 16, ),
+                    const AppText(text: 'Product Description', fontSize: 16, ),
                     const SizedBox(height: 10),
                     CustomTextFormField(
                       controller: _productDescriptionController,
@@ -228,7 +228,7 @@ class _AdminAddProductsState extends State<AdminAddProducts> {
                       },
                     ),
                     const SizedBox(height: 10),
-                    AppText(text: 'Product Price', fontSize: 16, ),
+                    const AppText(text: 'Product Price', fontSize: 16, ),
                     const SizedBox(height: 10),
                     CustomTextFormField(
                       keyboardType: TextInputType.number,
@@ -264,7 +264,7 @@ class _AdminAddProductsState extends State<AdminAddProducts> {
                       },
                     ),
                     const SizedBox(height: 10),
-                    AppText(text: 'Category Type', fontSize: 16, ),
+                    const AppText(text: 'Category Type', fontSize: 16, ),
                     const SizedBox(height: 10),
                     DropdownButtonFormField<String>(
                       value: _selectedCategory,
@@ -278,15 +278,16 @@ class _AdminAddProductsState extends State<AdminAddProducts> {
                         ),
                       ),
                       dropdownColor: Colors.grey.shade900,
-                      items: ['Bag', 'Electronics', 'Clothes', 'Shoes', 'Sports']
+                      items: ['Fruits', 'Vegetables', 'Dairy Products', 'Grains & Pulses', 'Herbs & Spices']
                           .map((category) => DropdownMenuItem<String>(
                         value: category,
-                        child: Text(category, style: TextStyle(color: Colors.white)),
+                        child: Text(category, style: const TextStyle(color: Colors.white)),
                       ))
                           .toList(),
                       onChanged: (value) {
                         setState(() {
                           _selectedCategory = value;
+                          print('_selectedCategory:$_selectedCategory');
                         });
                       },
                       validator: (value) {
@@ -297,7 +298,7 @@ class _AdminAddProductsState extends State<AdminAddProducts> {
                       },
                     ),
                     const SizedBox(height: 10),
-                    AppText(text: 'Product Type', fontSize: 16, ),
+                    const AppText(text: 'Product Type', fontSize: 16, ),
                     const SizedBox(height: 10),
                     Column(
                       children: [
